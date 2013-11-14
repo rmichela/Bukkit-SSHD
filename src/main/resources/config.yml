@@ -1,0 +1,12 @@
+# This is the port the SSH server will listen on.
+port: 22
+
+# By default, only public key authentication is enabled. This is the most secure mode.
+# To authorize a user to log in with public key authentication, install their public
+# PEM certificate in the authorized_users directory. Name the key file with user's user
+# name (no file extension).
+
+# For less secure username and password based authentication, complete the sections below.
+credentials:
+#    user1: password1
+#    user2: password2
