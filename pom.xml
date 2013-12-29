@@ -6,7 +6,7 @@
 
     <groupId>com.ryanmichela</groupId>
     <artifactId>SSHD</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <url>http://dev.bukkit.org/server-mods/sshd/</url>
 
     <!-- Repositories -->
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
-            <version>1.6.4-R1.0</version>
+            <version>1.7.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>
@@ -41,11 +41,6 @@
             <scope>compile</scope>
             <type>jar</type>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.bouncycastle</groupId>-->
-            <!--<artifactId>bcprov-jdk16</artifactId>-->
-            <!--<version>1.46</version>-->
-        <!--</dependency>-->
     </dependencies>
 
     <!-- Build -->

@@ -10,7 +10,6 @@ import org.bukkit.craftbukkit.libs.jline.console.ConsoleReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.logging.Formatter;
 import java.util.logging.Logger;
 import java.util.logging.StreamHandler;
 
@@ -66,19 +65,17 @@ public class ConsoleShellFactory implements Factory<Command> {
 
         public void start(Environment env) throws IOException {
 
-            Formatter bukkitFormatter = Bukkit.getLogger().getHandlers()[0].getFormatter();
-
             try {
                 consoleReader = new ConsoleReader(in, new FlushyOutputStream(out), new SshTerminal());
                 consoleReader.setExpandEvents(true);
                 consoleReader.addCompleter(new ConsoleCommandCompleter());
 
-                streamHandler = new FlushyStreamHandler(out, bukkitFormatter, consoleReader);
+                streamHandler = new FlushyStreamHandler(out, new ConsoleLogFormatter(), consoleReader);
                 Bukkit.getLogger().addHandler(streamHandler);
                 Logger.getLogger("").addHandler(streamHandler);
 
                 environment = env;
-                thread = new Thread(this, "EchoShell " + env.getEnv().get(Environment.ENV_USER));
+                thread = new Thread(this, "SSHD ConsoleShell " + env.getEnv().get(Environment.ENV_USER));
                 thread.start();
             } catch (Exception e) {
                 throw new IOException("Error starting shell", e);
