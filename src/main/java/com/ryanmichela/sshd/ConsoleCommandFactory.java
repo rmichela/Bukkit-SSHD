@@ -53,7 +53,7 @@ public class ConsoleCommandFactory implements CommandFactory {
                 SshdPlugin.instance.getLogger().info("[U: " + environment.getEnv().get(Environment.ENV_USER) + "] " + command);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
             } catch (Exception e) {
-                SshdPlugin.instance.getLogger().severe("Error processing command from SSH");
+                SshdPlugin.instance.getLogger().severe("Error processing command from SSH -" + e.getMessage());
             } finally {
                 callback.onExit(0);
             }

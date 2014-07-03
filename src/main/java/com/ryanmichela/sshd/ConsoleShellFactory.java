@@ -1,5 +1,7 @@
 package com.ryanmichela.sshd;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.apache.sshd.common.Factory;
 import org.apache.sshd.server.Command;
 import org.apache.sshd.server.Environment;
@@ -10,7 +12,6 @@ import org.bukkit.craftbukkit.libs.jline.console.ConsoleReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.logging.Logger;
 import java.util.logging.StreamHandler;
 
 public class ConsoleShellFactory implements Factory<Command> {
@@ -28,7 +29,7 @@ public class ConsoleShellFactory implements Factory<Command> {
         private Environment environment;
         private Thread thread;
 
-        StreamHandler streamHandler;
+        StreamHandlerAppender streamHandlerAppender;
         ConsoleReader consoleReader;
 
         public InputStream getIn() {
@@ -70,9 +71,10 @@ public class ConsoleShellFactory implements Factory<Command> {
                 consoleReader.setExpandEvents(true);
                 consoleReader.addCompleter(new ConsoleCommandCompleter());
 
-                streamHandler = new FlushyStreamHandler(out, new ConsoleLogFormatter(), consoleReader);
-                Bukkit.getLogger().addHandler(streamHandler);
-                Logger.getLogger("").addHandler(streamHandler);
+                StreamHandler streamHandler = new FlushyStreamHandler(out, new ConsoleLogFormatter(), consoleReader);
+                streamHandlerAppender = new StreamHandlerAppender(streamHandler);
+
+                ((Logger) LogManager.getRootLogger()).addAppender(streamHandlerAppender);
 
                 environment = env;
                 thread = new Thread(this, "SSHD ConsoleShell " + env.getEnv().get(Environment.ENV_USER));
@@ -83,8 +85,7 @@ public class ConsoleShellFactory implements Factory<Command> {
         }
 
         public void destroy() {
-            Bukkit.getLogger().removeHandler(streamHandler);
-            Logger.getLogger("").removeHandler(streamHandler);
+            ((Logger) LogManager.getRootLogger()).removeAppender(streamHandlerAppender);
         }
 
         public void run() {
@@ -97,7 +98,7 @@ public class ConsoleShellFactory implements Factory<Command> {
                         if (command.equals("exit")) {
                             break;
                         }
-                        SshdPlugin.instance.getLogger().info("[U: " + environment.getEnv().get(Environment.ENV_USER) + "] " + command);
+                        SshdPlugin.instance.getLogger().info("<" + environment.getEnv().get(Environment.ENV_USER) + "> " + command);
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
                     }
                 }

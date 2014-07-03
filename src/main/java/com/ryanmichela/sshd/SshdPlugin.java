@@ -55,7 +55,7 @@ public class SshdPlugin extends JavaPlugin {
     public void onDisable() {
         try {
             sshd.stop();
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             // do nothing
         }
     }
