@@ -10,3 +10,10 @@ port: 22
 credentials:
 #    user1: password1
 #    user2: password2
+
+# To enable the IP whitelist, add more lines below. Whitelist entries can be expressed
+# in CIDR notation (ip address/mask) for whitelisting a range of IP addresses.
+whitelist:
+#    - ::1/128
+#    - 127.0.0.0/8
+#    - 192.168.0.0/16

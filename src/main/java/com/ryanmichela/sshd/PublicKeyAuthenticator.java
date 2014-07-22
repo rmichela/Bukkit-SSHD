@@ -11,7 +11,7 @@ import java.security.PublicKey;
 /**
  * Copyright 2013 Ryan Michela
  */
-public class PublicKeyAuthenticator implements PublickeyAuthenticator {
+public class PublicKeyAuthenticator extends IpFilteredAuthenticator implements PublickeyAuthenticator {
     private File authorizedKeysDir;
 
     public PublicKeyAuthenticator(File authorizedKeysDir) {
@@ -20,6 +20,8 @@ public class PublicKeyAuthenticator implements PublickeyAuthenticator {
 
     @Override
     public boolean authenticate(String username, PublicKey key, ServerSession session) {
+        if (!ipAddressIsApproved(session)) return false;
+
         byte[] keyBytes = key.getEncoded();
         File keyFile = new File(authorizedKeysDir, username);
 

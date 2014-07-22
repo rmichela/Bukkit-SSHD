@@ -9,11 +9,13 @@ import java.util.Map;
 /**
  * Copyright 2013 Ryan Michela
  */
-public class ConfigPasswordAuthenticator implements PasswordAuthenticator {
+public class ConfigPasswordAuthenticator extends IpFilteredAuthenticator implements PasswordAuthenticator {
     private Map<String, Integer> failCounts = new HashMap<String, Integer>();
 
     @Override
     public boolean authenticate(String username, String password, ServerSession serverSession) {
+        if (!ipAddressIsApproved(serverSession)) return false;
+
         if (SshdPlugin.instance.getConfig().getString("credentials." + username).equals(password)) {
             failCounts.put(username, 0);
             return true;
