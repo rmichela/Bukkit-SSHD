@@ -1,4 +1,6 @@
-# This is the port the SSH server will listen on.
+# The interface the SSH server will listen on. Leave blank for all interfaces.
+host:
+# The port the SSH server will listen on.
 port: 22
 
 # By default, only public key authentication is enabled. This is the most secure mode.
