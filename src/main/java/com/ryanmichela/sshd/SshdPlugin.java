@@ -35,8 +35,8 @@ public class SshdPlugin extends JavaPlugin {
 
         sshd = SshServer.setUpDefaultServer();
         sshd.setPort(getConfig().getInt("port", 22));
-        String host = getConfig().getString("listenAddress", "*");
-        sshd.setHost(host == "*" ? null : host);
+        String host = getConfig().getString("listenAddress", "all");
+        sshd.setHost(host.equals("all") ? null : host);
 
         File hostKey = new File(getDataFolder(), "hostkey");
         File authorizedKeys = new File(getDataFolder(), "authorized_keys");

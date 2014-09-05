@@ -1,6 +1,6 @@
 # The IP addresses(s) the SSH server will listen on. Use a comma separated list for multiple addresses.
-# Leave as * for all addresses.
-listenAddress: *
+# Leave as "all" for all addresses.
+listenAddress: all
 # The port the SSH server will listen on.
 port: 22
 
