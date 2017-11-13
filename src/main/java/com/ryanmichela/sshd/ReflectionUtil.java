@@ -28,9 +28,7 @@ public class ReflectionUtil {
             modifiersField.setInt(f, f.getModifiers() & ~Modifier.FINAL);
 
             f.set(o, newValue);
-        } catch (NoSuchFieldException ex) {
-            System.out.println("*** " + c.getName() + ":" + ex);
-        } catch (IllegalAccessException ex) {
+        } catch (NoSuchFieldException | IllegalAccessException ex) {
             System.out.println("*** " + c.getName() + ":" + ex);
         }
     }

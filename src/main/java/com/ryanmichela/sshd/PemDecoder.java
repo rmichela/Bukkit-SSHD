@@ -22,7 +22,7 @@ public class PemDecoder extends java.io.BufferedReader {
     }
 
     public PublicKey getPemBytes() throws Exception {
-        StringBuffer b64 = new StringBuffer();
+        StringBuilder b64 = new StringBuilder();
 
         String line = readLine();
         if (!line.matches(BEGIN)) {

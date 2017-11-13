@@ -71,12 +71,12 @@ public class StreamHandlerAppender implements Appender {
 
     @Override
     public State getState() {
-        return null; // TODO: Generated method stub
+        return State.INITIALIZED;
     }
 
     @Override
     public void initialize() {
-        // TODO: Generated method stub
+
     }
 
     @Override
@@ -96,6 +96,6 @@ public class StreamHandlerAppender implements Appender {
 
     @Override
     public boolean isStopped() {
-        return false; // TODO: Generated method stub
+        return false;
     }
 }

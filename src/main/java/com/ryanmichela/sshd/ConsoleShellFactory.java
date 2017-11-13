@@ -15,6 +15,9 @@ import java.io.OutputStream;
 import java.util.logging.StreamHandler;
 
 public class ConsoleShellFactory implements Factory<Command> {
+    public Command get() {
+        return this.create();
+    }
 
     public Command create() {
         return new ConsoleShell();
@@ -92,7 +95,7 @@ public class ConsoleShellFactory implements Factory<Command> {
             String command;
             try {
                 printPreamble(consoleReader);
-                while(true) {
+                while (true) {
                     command = consoleReader.readLine("\r>", null);
                     if (command != null) {
                         if (command.equals("exit")) {
@@ -109,7 +112,7 @@ public class ConsoleShellFactory implements Factory<Command> {
             }
         }
 
-        private void printPreamble(ConsoleReader consoleReader) throws IOException{
+        private void printPreamble(ConsoleReader consoleReader) throws IOException {
             consoleReader.println("  _____ _____ _    _ _____");
             consoleReader.println(" / ____/ ____| |  | |  __ \\");
             consoleReader.println("| (___| (___ | |__| | |  | |");
