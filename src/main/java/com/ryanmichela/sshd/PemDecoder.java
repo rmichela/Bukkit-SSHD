@@ -1,6 +1,6 @@
 package com.ryanmichela.sshd;
 
-import org.apache.mina.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.Reader;
 import java.math.BigInteger;

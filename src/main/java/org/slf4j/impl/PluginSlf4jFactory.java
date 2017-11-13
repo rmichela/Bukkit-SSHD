@@ -32,12 +32,14 @@ public class PluginSlf4jFactory implements ILoggerFactory {
            if (SshdPlugin.instance != null && isEnabled(level)) {
                FormattingTuple ft = MessageFormatter.arrayFormat(s, objects);
                SshdPlugin.instance.getLogger().log(level, ft.getMessage(), ft.getThrowable());
+               SshdPlugin.instance.getLogger().log(level, s, Thread.currentThread().getStackTrace());
            }
         }
 
         private void log(Level level, String s, Throwable throwable) {
             if (SshdPlugin.instance != null && isEnabled(level)) {
                 SshdPlugin.instance.getLogger().log(level, s, throwable);
+                SshdPlugin.instance.getLogger().log(level, s, Thread.currentThread().getStackTrace());
             }
         }
 

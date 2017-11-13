@@ -1,6 +1,6 @@
 package com.ryanmichela.sshd;
 
-import org.apache.sshd.SshServer;
+import org.apache.sshd.server.SshServer;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -41,7 +41,7 @@ public class SshdPlugin extends JavaPlugin {
         File hostKey = new File(getDataFolder(), "hostkey");
         File authorizedKeys = new File(getDataFolder(), "authorized_keys");
 
-        sshd.setKeyPairProvider(new SimpleGeneratorHostKeyProvider(hostKey.getPath()));
+        sshd.setKeyPairProvider(new SimpleGeneratorHostKeyProvider(hostKey));
         sshd.setShellFactory(new ConsoleShellFactory());
         sshd.setPasswordAuthenticator(new ConfigPasswordAuthenticator());
         sshd.setPublickeyAuthenticator(new PublicKeyAuthenticator(authorizedKeys));

@@ -1,7 +1,7 @@
 package com.ryanmichela.sshd;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.sshd.server.PublickeyAuthenticator;
+import org.apache.sshd.server.auth.pubkey.PublickeyAuthenticator;
 import org.apache.sshd.server.session.ServerSession;
 
 import java.io.File;

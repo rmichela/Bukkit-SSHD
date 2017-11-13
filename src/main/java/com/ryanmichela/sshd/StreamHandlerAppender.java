@@ -25,15 +25,18 @@ public class StreamHandlerAppender implements Appender {
     @Override
     public void append(LogEvent logEvent) {
         java.util.logging.Level level;
-        switch (logEvent.getLevel())
-        {
-            case DEBUG: level = java.util.logging.Level.FINE; break;
-            case INFO: level = java.util.logging.Level.INFO; break;
-            case WARN: level = java.util.logging.Level.WARNING; break;
-            case ERROR: level = java.util.logging.Level.SEVERE; break;
-            default: level = java.util.logging.Level.INFO; break;
-        }
 
+        if(logEvent.getLevel().equals(org.apache.logging.log4j.Level.DEBUG)) {
+            level = java.util.logging.Level.FINE;
+        } else if(logEvent.getLevel().equals(org.apache.logging.log4j.Level.INFO)) {
+            level = java.util.logging.Level.INFO;
+        } else if(logEvent.getLevel().equals(org.apache.logging.log4j.Level.WARN)) {
+            level = java.util.logging.Level.WARNING;
+        } else if(logEvent.getLevel().equals(org.apache.logging.log4j.Level.ERROR)) {
+            level = java.util.logging.Level.SEVERE;
+        } else {
+            level = java.util.logging.Level.INFO;
+        }
         String message = logEvent.getMessage().getFormattedMessage();
 
 
@@ -67,6 +70,16 @@ public class StreamHandlerAppender implements Appender {
     }
 
     @Override
+    public State getState() {
+        return null; // TODO: Generated method stub
+    }
+
+    @Override
+    public void initialize() {
+        // TODO: Generated method stub
+    }
+
+    @Override
     public void start() {
 
     }
@@ -79,5 +92,10 @@ public class StreamHandlerAppender implements Appender {
     @Override
     public boolean isStarted() {
         return true;
+    }
+
+    @Override
+    public boolean isStopped() {
+        return false; // TODO: Generated method stub
     }
 }
