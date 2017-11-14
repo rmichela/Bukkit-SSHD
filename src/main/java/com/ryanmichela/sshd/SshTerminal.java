@@ -1,6 +1,6 @@
 package com.ryanmichela.sshd;
 
-import org.bukkit.craftbukkit.libs.jline.TerminalSupport;
+import jline.TerminalSupport;
 
 /**
  * Copyright 2013 Ryan Michela

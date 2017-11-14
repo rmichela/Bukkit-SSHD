@@ -6,7 +6,7 @@ package com.ryanmichela.sshd;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
-import org.bukkit.craftbukkit.libs.jline.console.completer.Completer;
+import jline.console.completer.Completer;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;

@@ -1,5 +1,6 @@
 package com.ryanmichela.sshd;
 
+import jline.console.ConsoleReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.apache.sshd.common.Factory;
@@ -7,7 +8,6 @@ import org.apache.sshd.server.Command;
 import org.apache.sshd.server.Environment;
 import org.apache.sshd.server.ExitCallback;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.libs.jline.console.ConsoleReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -92,17 +92,18 @@ public class ConsoleShellFactory implements Factory<Command> {
         }
 
         public void run() {
-            String command;
             try {
                 printPreamble(consoleReader);
                 while (true) {
-                    command = consoleReader.readLine("\r>", null);
+                    String command = consoleReader.readLine("\r>", null);
                     if (command != null) {
                         if (command.equals("exit")) {
                             break;
                         }
                         SshdPlugin.instance.getLogger().info("<" + environment.getEnv().get(Environment.ENV_USER) + "> " + command);
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+                        Bukkit.getScheduler().runTask(SshdPlugin.instance, () -> {
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+                        });
                     }
                 }
             } catch (IOException e) {

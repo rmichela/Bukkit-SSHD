@@ -1,7 +1,7 @@
 package com.ryanmichela.sshd;
 
 import org.apache.sshd.common.SshException;
-import org.bukkit.craftbukkit.libs.jline.console.ConsoleReader;
+import jline.console.ConsoleReader;
 
 
 import java.io.IOException;
