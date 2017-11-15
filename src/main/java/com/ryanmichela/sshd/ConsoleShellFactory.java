@@ -114,17 +114,17 @@ public class ConsoleShellFactory implements Factory<Command> {
         }
 
         private void printPreamble(ConsoleReader consoleReader) throws IOException {
-            consoleReader.println("  _____ _____ _    _ _____");
-            consoleReader.println(" / ____/ ____| |  | |  __ \\");
-            consoleReader.println("| (___| (___ | |__| | |  | |");
-            consoleReader.println(" \\___ \\\\___ \\|  __  | |  | |");
-            consoleReader.println(" ____) |___) | |  | | |__| |");
-            consoleReader.println("|_____/_____/|_|  |_|_____/");
-            consoleReader.println("Connected to: " + Bukkit.getServer().getName());
-            consoleReader.println("- " + Bukkit.getServer().getMotd());
-            consoleReader.println();
-            consoleReader.println("Type 'exit' to exit the shell.");
-            consoleReader.println("===============================================");
+            consoleReader.println("  _____ _____ _    _ _____" + "\r");
+            consoleReader.println(" / ____/ ____| |  | |  __ \\" + "\r");
+            consoleReader.println("| (___| (___ | |__| | |  | |" + "\r");
+            consoleReader.println(" \\___ \\\\___ \\|  __  | |  | |" + "\r");
+            consoleReader.println(" ____) |___) | |  | | |__| |" + "\r");
+            consoleReader.println("|_____/_____/|_|  |_|_____/" + "\r");
+            consoleReader.println("Connected to: " + Bukkit.getServer().getName() + "\r");
+            consoleReader.println("- " + Bukkit.getServer().getMotd() + "\r");
+            consoleReader.println("\r");
+            consoleReader.println("Type 'exit' to exit the shell." + "\r");
+            consoleReader.println("===============================================" + "\r");
         }
     }
 }
