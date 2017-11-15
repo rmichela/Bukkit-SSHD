@@ -1,4 +1,4 @@
 name: SSHD
-version: "1.2"
-author: Ryan Michela
+version: ${project.version}
+author: Ryan Michela, Haarolean, toxuin
 main: com.ryanmichela.sshd.SshdPlugin
