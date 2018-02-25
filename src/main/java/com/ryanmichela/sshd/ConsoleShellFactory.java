@@ -1,5 +1,6 @@
 package com.ryanmichela.sshd;
 
+import com.ryanmichela.sshd.implementations.SSHDCommandSender;
 import jline.console.ConsoleReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -12,9 +13,13 @@ import org.bukkit.Bukkit;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.logging.Level;
 import java.util.logging.StreamHandler;
 
 public class ConsoleShellFactory implements Factory<Command> {
+
+    static SSHDCommandSender sshdCommandSender = new SSHDCommandSender();
+
     public Command get() {
         return this.create();
     }
@@ -24,7 +29,6 @@ public class ConsoleShellFactory implements Factory<Command> {
     }
 
     public static class ConsoleShell implements Command, Runnable {
-
         private InputStream in;
         private OutputStream out;
         private OutputStream err;
@@ -33,7 +37,7 @@ public class ConsoleShellFactory implements Factory<Command> {
         private Thread thread;
 
         StreamHandlerAppender streamHandlerAppender;
-        ConsoleReader consoleReader;
+        public static ConsoleReader consoleReader;
 
         public InputStream getIn() {
             return in;
@@ -68,7 +72,6 @@ public class ConsoleShellFactory implements Factory<Command> {
         }
 
         public void start(Environment env) throws IOException {
-
             try {
                 consoleReader = new ConsoleReader(in, new FlushyOutputStream(out), new SshTerminal());
                 consoleReader.setExpandEvents(true);
@@ -93,21 +96,25 @@ public class ConsoleShellFactory implements Factory<Command> {
 
         public void run() {
             try {
-                printPreamble(consoleReader);
+                if (!SshdPlugin.instance.getConfig().getString("mode").equals("RPC"))
+                    printPreamble(consoleReader);
                 while (true) {
                     String command = consoleReader.readLine("\r>", null);
-                    if (command != null) {
-                        if (command.equals("exit")) {
-                            break;
-                        }
-                        SshdPlugin.instance.getLogger().info("<" + environment.getEnv().get(Environment.ENV_USER) + "> " + command);
-                        Bukkit.getScheduler().runTask(SshdPlugin.instance, () -> {
+                    if (command == null) continue;
+                    if (command.equals("exit")) break;
+                    Bukkit.getScheduler().runTask(SshdPlugin.instance, () -> {
+                        if (SshdPlugin.instance.getConfig().getString("mode").equals("RPC") && command.startsWith("rpc")) {
+                            //NO ECHO NO PREAMBLE AND SHIT
+                            String cmd = command.substring("rpc".length() + 1, command.length());
+                            Bukkit.dispatchCommand(sshdCommandSender, cmd);
+                        } else {
+                            SshdPlugin.instance.getLogger().info("<" + environment.getEnv().get(Environment.ENV_USER) + "> " + command);
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                        });
-                    }
+                        }
+                    });
                 }
             } catch (IOException e) {
-                SshdPlugin.instance.getLogger().severe("Error processing command from SSH");
+                SshdPlugin.instance.getLogger().log(Level.SEVERE, "Error processing command from SSH", e);
             } finally {
                 callback.onExit(0);
             }
