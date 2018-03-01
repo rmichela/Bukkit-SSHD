@@ -31,6 +31,7 @@ public class SSHDCommandSender implements ConsoleCommandSender, CommandSender {
     }
 
     public void sendRawMessage(String message) {
+        if(ConsoleShellFactory.ConsoleShell.consoleReader == null) return;
         try {
             ConsoleShellFactory.ConsoleShell.consoleReader.println(ChatColor.stripColor(message));
         } catch (IOException e) {
