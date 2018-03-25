@@ -7,6 +7,10 @@ port: 22
 # Operational mode. Don't touch if you don't know what you're doing. Can be either DEFAULT or RPC
 mode: DEFAULT
 
+# Enable built-in SFTP server or not. You'll be able to connect and upload/download files via SFTP protocol.
+# Might be useful for testing purposes as well , i. e. docker containers.
+enableSFTP: true
+
 # By default, only public key authentication is enabled. This is the most secure mode.
 # To authorize a user to log in with public key authentication, install their public
 # PEM certificate in the authorized_users directory. Name the key file with user's user
