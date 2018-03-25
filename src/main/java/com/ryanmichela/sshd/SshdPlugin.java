@@ -1,11 +1,15 @@
 package com.ryanmichela.sshd;
 
+import org.apache.sshd.common.file.virtualfs.VirtualFileSystemFactory;
 import org.apache.sshd.server.SshServer;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
+import org.apache.sshd.server.subsystem.sftp.SftpSubsystemFactory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.util.Collections;
 import java.util.logging.Level;
 
 /**
@@ -45,6 +49,16 @@ public class SshdPlugin extends JavaPlugin {
         sshd.setShellFactory(new ConsoleShellFactory());
         sshd.setPasswordAuthenticator(new ConfigPasswordAuthenticator());
         sshd.setPublickeyAuthenticator(new PublicKeyAuthenticator(authorizedKeys));
+
+        if (getConfig().getBoolean("enableSFTP")) {
+            sshd.setSubsystemFactories(Collections.singletonList(new SftpSubsystemFactory()));
+            sshd.setFileSystemFactory(new VirtualFileSystemFactory(
+                    FileSystems.getDefault().getPath(
+                            getDataFolder().getAbsolutePath()
+                    ).getParent().getParent()
+            ));
+        }
+
         sshd.setCommandFactory(new ConsoleCommandFactory());
         try {
             sshd.start();
