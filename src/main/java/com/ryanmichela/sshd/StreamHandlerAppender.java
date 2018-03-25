@@ -70,16 +70,6 @@ public class StreamHandlerAppender implements Appender {
     }
 
     @Override
-    public State getState() {
-        return State.INITIALIZED;
-    }
-
-    @Override
-    public void initialize() {
-
-    }
-
-    @Override
     public void start() {
 
     }
