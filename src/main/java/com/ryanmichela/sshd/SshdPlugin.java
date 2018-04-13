@@ -63,7 +63,7 @@ public class SshdPlugin extends JavaPlugin {
         try {
             sshd.start();
         } catch (IOException e) {
-            getLogger().severe("Failed to start SSH server! " + e.getMessage());
+            getLogger().log(Level.SEVERE, "Failed to start SSH server! ", e);
         }
     }
 
