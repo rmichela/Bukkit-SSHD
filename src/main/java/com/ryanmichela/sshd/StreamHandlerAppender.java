@@ -14,6 +14,7 @@ import java.util.logging.StreamHandler;
  * Copyright 2014 Ryan Michela
  */
 public class StreamHandlerAppender implements Appender {
+
     private StreamHandler streamHandler;
     private UUID uuid;
 
@@ -26,13 +27,13 @@ public class StreamHandlerAppender implements Appender {
     public void append(LogEvent logEvent) {
         java.util.logging.Level level;
 
-        if(logEvent.getLevel().equals(org.apache.logging.log4j.Level.DEBUG)) {
+        if (logEvent.getLevel().equals(org.apache.logging.log4j.Level.DEBUG)) {
             level = java.util.logging.Level.FINE;
-        } else if(logEvent.getLevel().equals(org.apache.logging.log4j.Level.INFO)) {
+        } else if (logEvent.getLevel().equals(org.apache.logging.log4j.Level.INFO)) {
             level = java.util.logging.Level.INFO;
-        } else if(logEvent.getLevel().equals(org.apache.logging.log4j.Level.WARN)) {
+        } else if (logEvent.getLevel().equals(org.apache.logging.log4j.Level.WARN)) {
             level = java.util.logging.Level.WARNING;
-        } else if(logEvent.getLevel().equals(org.apache.logging.log4j.Level.ERROR)) {
+        } else if (logEvent.getLevel().equals(org.apache.logging.log4j.Level.ERROR)) {
             level = java.util.logging.Level.SEVERE;
         } else {
             level = java.util.logging.Level.INFO;

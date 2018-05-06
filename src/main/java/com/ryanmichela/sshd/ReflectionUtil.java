@@ -8,6 +8,7 @@ import java.lang.reflect.Modifier;
  * Copyright 2013 Ryan Michela
  */
 public class ReflectionUtil {
+
     public static void setProtectedValue(Object o, String field, Object newValue) {
         setProtectedValue(o.getClass(), o, field, newValue);
     }
@@ -36,9 +37,9 @@ public class ReflectionUtil {
     public static <T> T getProtectedValue(Object obj, String fieldName) {
         try {
             Class c = obj.getClass();
-            while(c != Object.class) {
+            while (c != Object.class) {
                 Field[] fields = c.getDeclaredFields();
-                for(Field f : fields) {
+                for (Field f : fields) {
                     if (f.getName() == fieldName) {
                         f.setAccessible(true);
                         return (T) f.get(obj);
@@ -76,7 +77,7 @@ public class ReflectionUtil {
     public static Object invokeProtectedMethod(Class c, Object o, String method, Object... args) {
         try {
             Class[] pTypes = new Class[args.length];
-            for(int i = 0; i < args.length; i++) {
+            for (int i = 0; i < args.length; i++) {
                 if (args[i] instanceof Integer) {
                     pTypes[i] = int.class;
                 } else {
@@ -87,8 +88,7 @@ public class ReflectionUtil {
             Method m = c.getDeclaredMethod(method, pTypes);
             m.setAccessible(true);
             return m.invoke(o, args);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("*** " + c.getName() + "." + method + "(): " + ex);
             return null;
         }

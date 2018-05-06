@@ -10,6 +10,7 @@ import java.util.Map;
  * Copyright 2013 Ryan Michela
  */
 public class ConfigPasswordAuthenticator implements PasswordAuthenticator {
+
     private Map<String, Integer> failCounts = new HashMap<String, Integer>();
 
     @Override

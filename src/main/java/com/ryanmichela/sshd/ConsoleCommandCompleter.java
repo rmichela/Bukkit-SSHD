@@ -4,15 +4,16 @@ package com.ryanmichela.sshd;
  * Copyright 2013 Ryan Michela
  */
 
+import jline.console.completer.Completer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
-import jline.console.completer.Completer;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 
 public class ConsoleCommandCompleter implements Completer {
+
     public int complete(final String buffer, final int cursor, final List<CharSequence> candidates) {
         Waitable<List<String>> waitable = new Waitable<List<String>>() {
             @Override

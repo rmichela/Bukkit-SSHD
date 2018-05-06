@@ -13,6 +13,7 @@ import java.security.spec.RSAPublicKeySpec;
  * Copyright 2013 Ryan Michela
  */
 public class PemDecoder extends java.io.BufferedReader {
+
     private static final String BEGIN = "^-+\\s*BEGIN.+";
     private static final String END = "^-+\\s*END.+";
     private static final String COMMENT = "Comment:";
@@ -29,7 +30,7 @@ public class PemDecoder extends java.io.BufferedReader {
             return null;
         }
 
-        for(line = readLine(); line != null; line = readLine()) {
+        for (line = readLine(); line != null; line = readLine()) {
             if (!line.matches(END) && !line.startsWith(COMMENT)) {
                 b64.append(line.trim());
             }
@@ -84,7 +85,7 @@ public class PemDecoder extends java.io.BufferedReader {
 
     private int decodeInt() {
         return ((bytes[pos++] & 0xFF) << 24) | ((bytes[pos++] & 0xFF) << 16)
-                | ((bytes[pos++] & 0xFF) << 8) | (bytes[pos++] & 0xFF);
+               | ((bytes[pos++] & 0xFF) << 8) | (bytes[pos++] & 0xFF);
     }
 
     private BigInteger decodeBigInt() {

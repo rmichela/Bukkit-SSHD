@@ -6,11 +6,13 @@ import java.util.concurrent.ExecutionException;
  * Copyright 2013 Ryan Michela
  */
 public abstract class Waitable<T> implements Runnable {
+
     private enum Status {
         WAITING,
         RUNNING,
         FINISHED,
     }
+
     Throwable t = null;
     T value = null;
     Status status = Status.WAITING;

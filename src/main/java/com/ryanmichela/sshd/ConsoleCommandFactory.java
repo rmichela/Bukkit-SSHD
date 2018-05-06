@@ -14,12 +14,14 @@ import java.io.OutputStream;
  * Copyright 2013 Ryan Michela
  */
 public class ConsoleCommandFactory implements CommandFactory {
+
     @Override
     public Command createCommand(String command) {
         return new ConsoleCommand(command);
     }
 
     public class ConsoleCommand implements Command {
+
         private String command;
 
         private InputStream in;
@@ -50,7 +52,8 @@ public class ConsoleCommandFactory implements CommandFactory {
         @Override
         public void start(Environment environment) throws IOException {
             try {
-                SshdPlugin.instance.getLogger().info("[U: " + environment.getEnv().get(Environment.ENV_USER) + "] " + command);
+                SshdPlugin.instance.getLogger()
+                        .info("[U: " + environment.getEnv().get(Environment.ENV_USER) + "] " + command);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
             } catch (Exception e) {
                 SshdPlugin.instance.getLogger().severe("Error processing command from SSH -" + e.getMessage());

@@ -1,8 +1,7 @@
 package com.ryanmichela.sshd;
 
-import org.apache.sshd.common.SshException;
 import jline.console.ConsoleReader;
-
+import org.apache.sshd.common.SshException;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -12,6 +11,7 @@ import java.util.logging.*;
  * Copyright 2013 Ryan Michela
  */
 public class FlushyStreamHandler extends StreamHandler {
+
     private ConsoleReader reader;
 
     public FlushyStreamHandler(OutputStream out, Formatter formatter, ConsoleReader reader) {

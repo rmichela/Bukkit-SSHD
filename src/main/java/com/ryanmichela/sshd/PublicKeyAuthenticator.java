@@ -12,6 +12,7 @@ import java.security.PublicKey;
  * Copyright 2013 Ryan Michela
  */
 public class PublicKeyAuthenticator implements PublickeyAuthenticator {
+
     private File authorizedKeysDir;
 
     public PublicKeyAuthenticator(File authorizedKeysDir) {
@@ -39,10 +40,13 @@ public class PublicKeyAuthenticator implements PublickeyAuthenticator {
                     SshdPlugin.instance.getLogger().severe("Failed to parse PEM file. " + keyFile.getAbsolutePath());
                 }
             } catch (Exception e) {
-                SshdPlugin.instance.getLogger().severe("Failed to process public key " + keyFile.getAbsolutePath() + ". " + e.getMessage());
+                SshdPlugin.instance.getLogger()
+                        .severe("Failed to process public key " + keyFile.getAbsolutePath() + ". " + e.getMessage());
             }
         } else {
-            SshdPlugin.instance.getLogger().warning("Could not locate public key for " + username + ". Make sure the user's key is named the same as their user name without a file extension.");
+            SshdPlugin.instance.getLogger().warning("Could not locate public key for " + username +
+                                                    ". Make sure the user's key is named the same as their user name " +
+                                                    "without a file extension.");
         }
 
         return false;

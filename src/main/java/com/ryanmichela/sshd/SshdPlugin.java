@@ -16,6 +16,7 @@ import java.util.logging.Level;
  * Copyright 2013 Ryan Michela
  */
 public class SshdPlugin extends JavaPlugin {
+
     private SshServer sshd;
     public static SshdPlugin instance;
 
