@@ -29,6 +29,7 @@ public class ConsoleShellFactory implements Factory<Command> {
     }
 
     public static class ConsoleShell implements Command, Runnable {
+
         private InputStream in;
         private OutputStream out;
         private OutputStream err;
@@ -101,14 +102,16 @@ public class ConsoleShellFactory implements Factory<Command> {
                 while (true) {
                     String command = consoleReader.readLine("\r>", null);
                     if (command == null) continue;
-                    if (command.equals("exit")) break;
+                    if (command.equals("exit") || command.equals("quit")) break;
                     Bukkit.getScheduler().runTask(SshdPlugin.instance, () -> {
-                        if (SshdPlugin.instance.getConfig().getString("mode").equals("RPC") && command.startsWith("rpc")) {
+                        if (SshdPlugin.instance.getConfig().getString("mode").equals("RPC") &&
+                            command.startsWith("rpc")) {
                             //NO ECHO NO PREAMBLE AND SHIT
                             String cmd = command.substring("rpc".length() + 1, command.length());
                             Bukkit.dispatchCommand(sshdCommandSender, cmd);
                         } else {
-                            SshdPlugin.instance.getLogger().info("<" + environment.getEnv().get(Environment.ENV_USER) + "> " + command);
+                            SshdPlugin.instance.getLogger()
+                                    .info("<" + environment.getEnv().get(Environment.ENV_USER) + "> " + command);
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
                         }
                     });
